@@ -1,7 +1,16 @@
 import React from 'react'
 import Table from './Table'
+import ProductItem from './products/ProductItem';
+import ProductCategoryHeader from './products/ProductCategoryHeader';
 
-const ProductTable = () => {
+
+
+const ProductTable = ( {headers, products} ) => {
+
+    const sportingGoods = products.filter((product) => product.type === 1)
+    const electronics = products.filter((product) => product.type === 2)
+
+
     return (
         <div>
         <Table.TableContainer>
@@ -13,33 +22,20 @@ const ProductTable = () => {
           </Table.THead>
     
           <Table.TBody>
-            <Table.Row>
-                <Table.ColumnHeader colspan="2">Sporting Goods</Table.ColumnHeader>
-            </Table.Row>
-            <Table.Row>
-                <Table.Column>Football</Table.Column>
-                <Table.Column>$99.99</Table.Column>
-            </Table.Row>
-            <Table.Row>
-                <Table.Column>Badminton</Table.Column>
-                <Table.Column>$20.99</Table.Column>
-            </Table.Row>
-            <Table.Row>
-                <Table.Column>Basketball</Table.Column>
-                <Table.Column>$15.99</Table.Column>
-            </Table.Row>
-            <Table.Row>
-                <Table.Column>Electronics</Table.Column>
-                <Table.Column>$49.99</Table.Column>
-            </Table.Row>
-            <Table.Row>
-                <Table.Column>Football</Table.Column>
-                <Table.Column>$49.99</Table.Column>
-            </Table.Row>
-            <Table.Row>
-                <Table.Column>Tennis</Table.Column>
-                <Table.Column>$49.99</Table.Column>
-            </Table.Row>
+            <ProductCategoryHeader text={headers[0]}/>
+                {sportingGoods.map((id, name, price, type) => (
+                    <ProductItem 
+                    key={`${type}-${id}`}
+                    name={name} 
+                    price={price}/>
+                ))}
+
+            <ProductCategoryHeader text={headers[1]}/>
+                {electronics.map((electronics) => (
+                    <ProductItem name={electronics.name} price={electronics.price}/>
+                ))}
+                
+                
           </Table.TBody>
         </Table.TableContainer>
         </div>
