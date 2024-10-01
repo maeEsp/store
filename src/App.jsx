@@ -1,27 +1,37 @@
 import './App.css'
-import FilterProductTable from './components/FilterProductTable'
+import FilterProductTable from './components/FilterProductTable';
 import SearchBar from './components/SearchBar';
 import ProductTable from './components/ProductTable';
+import { useState } from 'react';
 
 const products = [
-  {id:1 ,name: "Tennis", price: 99.9, type: 1},
-  {id:2 ,name: "Football", price: 34.99, type: 1},
-  {id:3 ,name: "Badminton", price: -100, type: 1},
-  {id:4 ,name: "Basketball", price: 123.99, type: 1},
-  {id:5 ,name: "Ipad", price: 99.9, type: 2},
-  {id:6 ,name: "MacBook", price: 34.99, type: 2},
-  {id:7 ,name: "Iphone", price: -100, type: 2},
-  {id:8 ,name: "Apple Watch", price: 123.99, type: 2},
+  //Sporting Goods
+  { id: 1, name: "Tennis", price: 99.9, type: 1, stock:100 },
+  { id: 2, name: "Badminton", price: 59.9, type: 1, stock:12 },
+  { id: 3, name: "Basketball", price: -100, type: 1, stock:0 },
+
+  //Electronics
+  { id: 4, name: "IPod Touch", price: 99.9, type: 2, stock:100 },
+  { id: 5, name: "IPhone 5", price: 399.9, type: 2, stock:0 },
+  { id: 6, name: "Nexus 7", price: 199.9, type: 2, stock:100 },
 ];
 
-const headers = ["Sporting Goods", "Electronics"]
+const headers = ["Sporting Goods","Electronics"]
 
 function App() {
+  const [query, setQuery] = useState("");
+  const [stockChecked, setStockChecked] = useState(false);
 
-  return <FilterProductTable>
-    <SearchBar/>
-    <ProductTable headers={headers} products={products}/>
-  </FilterProductTable>;
+  const filteredProducts = products.filter((product) => 
+    product.name.toLowerCase().includes(query.toLowerCase()) &&
+    (!stockChecked || product.stock > 0)
+  );
+
+  return (
+  <FilterProductTable>
+    <SearchBar query={query} setQuery={setQuery} stockChecked={stockChecked} setStockChecked={setStockChecked} />
+    <ProductTable headers={headers} products={filteredProducts} />
+  </FilterProductTable>);
   
 }
 
