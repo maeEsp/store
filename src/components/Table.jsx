@@ -18,7 +18,7 @@ const TFoot = ({ children, props }) => {
 };
 
 const Row = ({ children, props }) => {
-    return <tr {...props}>{children}</tr>;
+    return <tr  {...props}>{children}</tr>;
 };
 
 const Column = ({ children, props }) => {
