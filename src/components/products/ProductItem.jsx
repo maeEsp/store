@@ -1,15 +1,13 @@
 import React from 'react'
-import Table from '../Table';
+import Table from '../Table'
 
 const ProductItem = (props) => {
-
-    return (
-            <Table.Row>
-            <Table.Column>{props.name}</Table.Column>
-            <Table.Column>${props.price > 0 ? props.price.toFixed(2) : 0 }</Table.Column>
-            </Table.Row> 
-    );
-    
+  return (
+    <Table.Row>
+      <Table.Column>{props.name}</Table.Column>
+      <Table.Column>${props.price > 0 ? props.price.toFixed(2) : 0 }</Table.Column>
+    </Table.Row>
+  )
 }
 
 export default ProductItem

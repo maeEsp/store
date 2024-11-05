@@ -22,11 +22,12 @@ function App() {
   //     (!stockChecked || product.stock > 0)
   //   );
 
-  const [sort, setSort] = useState("asc");
+  const [sort, setSort] = useState("asc")
 
 useEffect(() => {
-  const controller = new AbortController();
-  const signal = controller.signal;
+  const controller = new AbortController()
+  const signal = controller.signal
+
   // call the api
   const getProducts = async () => {
     try{
@@ -34,7 +35,7 @@ useEffect(() => {
 
       const response = await fetch(`https://fakestoreapi.com/products?sort=${sort}`,
         { signal }
-      );
+      )
       const data = await response.json();
     
       setProducts(data);
@@ -49,7 +50,7 @@ useEffect(() => {
   
   //run when this component is destroyed or unmount
   return () => {
-    controller.abort();
+    controller.abort()
   };
 }, [sort])
 
@@ -63,7 +64,8 @@ useEffect(() => {
         <ProductCard 
         key={`product-${product.id}`}
         imageSrc={product.image} 
-        name={product.title}>
+        name={product.title}
+        id={product.id}>
         </ProductCard>
       ))}
     </div>
@@ -71,7 +73,7 @@ useEffect(() => {
       <span>Loading...</span>
     )}
     </FilterProductTable>
-    );                                                                                                                                                                                                                                                                                                                                 
+    );
 }
 
 export default App
