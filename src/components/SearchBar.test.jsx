@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { describe, expect } from "vitest";
 import SearchBar from "./SearchBar";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 
 const SearchBarWrapped = () => {
@@ -28,5 +28,28 @@ describe("SearchBar component",  () => {
         expect(select).toBeInTheDocument();
 
 
-    })
+    });
+    it("should manipulate the inputs", async () => {
+        render(<SearchBarWrapped />);
+        
+        const txt = await screen.findByTestId("search-text");
+        const checkbox = await screen.findByTestId("search-checkbox");
+        const select = await screen.findByTestId("search-select");
+
+        fireEvent.change(txt, { target: {value: "Sample"}});
+        expect(txt.value).toBe("Sample");
+
+        fireEvent.click(checkbox);
+        expect(checkbox.checked).toBeTruthy();
+
+        fireEvent.click(checkbox);
+        expect(checkbox.checked).toBeFalsy();
+
+        fireEvent.change(select, { target: {value: "desc"}});
+        expect(select.value).toBe("desc");
+        
+        fireEvent.change(select, { target: {value: "asc"}});
+        expect(select.value).toBe("asc");
+        
+    });
 })
